@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" style="background-color: #307FE2;">
   <ion-toolbar>
-    <ion-title >Iniciar Sesión</ion-title>
+    <ion-title>Registrarse</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,9 +10,15 @@
       <h1 class="title">Bienvenido a RegistrApp!</h1>
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Iniciar Sesión</ion-card-title>
+          <ion-card-title>Registrate</ion-card-title>
         </ion-card-header>
         <ion-card-content>
+          <ion-item>
+            <ion-input label="Nombre" labelPlacement="floating" id="nombre" type="text" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input label="Apellido" labelPlacement="floating" id="apellido" type="text" required></ion-input>
+          </ion-item>
           <ion-item>
             <ion-input label="Nombre De Usuario" labelPlacement="floating" id="NombreUsuario" type="text" required></ion-input>
           </ion-item>
@@ -20,16 +26,16 @@
             <ion-input label="Contraseña" labelPlacement="floating" id="contrasena" type="password" required></ion-input>
           </ion-item>
           <ion-item>
+            <ion-input label="Confirmar Contraseña" labelPlacement="floating" id="confirmarContrasena" type="password" required></ion-input>
+          </ion-item>
+          <ion-item>
             <ion-select label="Tipo de Usuario" id="tipoUsuario" interface="popover" style="color: black;">
               <ion-select-option style="color: #1A1A1A;" value="1">Profesor</ion-select-option>
               <ion-select-option style="color: #1A1A1A;" value="2">Alumno</ion-select-option>
             </ion-select>
           </ion-item>
-          <ion-button expand="block" style="margin-top: 16px;" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
-          <ion-button expand="block" fill="clear" routerLink="/registro" style="margin-top: 16px;">¿No tienes cuenta? Regístrate</ion-button>
-          <ion-text color="medium" style="display: block; text-align: center; margin-top: 16px;">
-            <a href="/olvido-contrasena">Olvidé mi contraseña</a>
-          </ion-text>
+          <ion-button expand="block" style="margin-top: 16px;">Registrarse</ion-button>
+          <ion-button expand="block" fill="clear" routerLink="/login" style="margin-top: 16px;">¿Ya tienes cuenta? Inicia Sesion</ion-button>
         </ion-card-content>
       </ion-card>
     </div>
