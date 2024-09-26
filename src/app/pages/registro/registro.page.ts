@@ -53,6 +53,13 @@ export class RegistroPage implements OnInit {
       msg += 'Las contraseñas no coinciden\n';
     }
 
+    NombreInput.value = '';
+    apellidoInput.value = '';
+    NombreUsuarioInput.value = '';
+    contrasenaInput.value = '';
+    confirmarContrasenaInput.value = '';
+    tipoUsuario.value = '';
+
     if (msg !== '') {
       let alert = await this.alertController.create({
         header: 'Error',
@@ -62,13 +69,6 @@ export class RegistroPage implements OnInit {
       await alert.present();
       return;
     }
-
-    NombreInput.value = '';
-    apellidoInput.value = '';
-    NombreUsuarioInput.value = '';
-    contrasenaInput.value = '';
-    confirmarContrasenaInput.value = '';
-
 
     let alert = await this.alertController.create({
       header: 'Registro exitoso',
