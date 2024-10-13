@@ -1,6 +1,6 @@
 <ion-header [translucent]="true" style="background-color: #307FE2;">
   <ion-toolbar>
-    <ion-title >Iniciar Sesión</ion-title>
+    <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,13 +14,13 @@
         </ion-card-header>
         <ion-card-content>
           <ion-item>
-            <ion-input label="Nombre De Usuario" labelPlacement="floating" id="NombreUsuario" type="text" required></ion-input>
+            <ion-input [(ngModel)]="NombreUsuario" label="Nombre De Usuario" labelPlacement="floating" id="NombreUsuario" type="text" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-input label="Contraseña" labelPlacement="floating" id="contrasena" type="password" required></ion-input>
+            <ion-input [(ngModel)]="contrasena" label="Contraseña" labelPlacement="floating" id="contrasena" type="password" required></ion-input>
           </ion-item>
           <ion-item>
-            <ion-select label="Tipo de Usuario" id="tipoUsuario" interface="popover" style="color: black;">
+            <ion-select [(ngModel)]="TipoUsuarioString" label="Tipo de Usuario" id="tipoUsuario" interface="popover" style="color: black;">
               <ion-select-option style="color: #1A1A1A;" value="1">Profesor</ion-select-option>
               <ion-select-option style="color: #1A1A1A;" value="2">Alumno</ion-select-option>
             </ion-select>

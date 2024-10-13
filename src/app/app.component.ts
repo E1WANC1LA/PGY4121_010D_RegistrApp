@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { Component, ChangeDetectorRef } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+
+import { addIcons } from 'ionicons';
+import { library, playCircle, radio, search } from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +10,5 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private menu: MenuController) {}
 
-  closeMenu() {
-    this.menu.close();
-  }
 }

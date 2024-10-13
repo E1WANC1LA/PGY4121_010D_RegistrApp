@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UntypedFormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,21 +7,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-  constructor(private router: Router) {}
+  NombreUsuario: string = '';
+  contrasena: string = '';
+  TipoUsuarioString: string = '';
+
+  constructor(private router: Router) { }
 
   iniciarSesion() {
     const NombreUsuarioInput = document.getElementById('NombreUsuario') as HTMLInputElement;
     const contrasenaInput = document.getElementById('contrasena') as HTMLInputElement;
     const tipoUsuario = document.getElementById('tipoUsuario') as HTMLInputElement;
 
-    const NombreUsuario = NombreUsuarioInput.value;
-    const contrasena = contrasenaInput.value;
-    const tipo = tipoUsuario.value;
+    let NombreUsuario = NombreUsuarioInput.value;
+    let contrasena = contrasenaInput.value;
+    let TipoUsuarioString = tipoUsuario.value;
 
     console.log(NombreUsuario, contrasena);
-    console.log(tipo);
+    console.log(TipoUsuarioString);
     let msg = '';
-    if (tipo === undefined) {
+    if (TipoUsuarioString === undefined) {
       msg += 'Debes seleccionar un tipo de usuario\n';
     }
     if (NombreUsuario === '') {
@@ -36,16 +39,15 @@ export class LoginPage {
 
       return;
     }
-    const TipoUsuarioString = tipo.toString();
     NombreUsuarioInput.value = '';
     contrasenaInput.value = '';
-
+    console.log(TipoUsuarioString);
     switch (TipoUsuarioString) {
       case '1':
-        this.router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario } });
+        this.router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario: this.NombreUsuario } });
         break;
       case '2':
-        this.router.navigate(['/inicio-alumno'], { queryParams: { NombreUsuario } });
+        this.router.navigate(['/inicio-alumno'], { queryParams: { NombreUsuario: this.NombreUsuario } });
         break;
       default:
         alert('Tipo de usuario no válido');

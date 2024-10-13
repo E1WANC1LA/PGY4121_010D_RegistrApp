@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { InicioAlumnoPageRoutingModule } from './inicio-alumno-routing.module';
-
+import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
 import { InicioAlumnoPage } from './inicio-alumno.page';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { InicioAlumnoPage } from './inicio-alumno.page';
     IonicModule,
     InicioAlumnoPageRoutingModule
   ],
-  declarations: [InicioAlumnoPage]
+  declarations: [InicioAlumnoPage,BarcodeScanningModalComponent]
 })
 export class InicioAlumnoPageModule {}

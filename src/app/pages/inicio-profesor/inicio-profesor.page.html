@@ -16,3 +16,21 @@
     </div>
   </div>
 </ion-content>
+
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button (click)="GenerarQr()">
+      <ion-icon name="play-circle"></ion-icon>
+      Generar QR
+    </ion-tab-button>
+    <ion-tab-button>
+      <ion-icon name="radio"></ion-icon>
+      Mis Cursos
+    </ion-tab-button>
+    <ion-tab-button (click)="cerrarSesion()">
+      <ion-icon name="radio"></ion-icon>
+      Cerrar Sesión
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
