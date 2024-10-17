@@ -1,57 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ServicioApi } from '../../services/ServicioApi.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
+
   NombreUsuario: string = '';
   contrasena: string = '';
-  TipoUsuarioString: string = '';
+  TipoUsuarioString: string | undefined;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private ServicioApi: ServicioApi) { }
+
+  ngOnInit() { }
 
   iniciarSesion() {
-    const NombreUsuarioInput = document.getElementById('NombreUsuario') as HTMLInputElement;
-    const contrasenaInput = document.getElementById('contrasena') as HTMLInputElement;
-    const tipoUsuario = document.getElementById('tipoUsuario') as HTMLInputElement;
-
-    let NombreUsuario = NombreUsuarioInput.value;
-    let contrasena = contrasenaInput.value;
-    let TipoUsuarioString = tipoUsuario.value;
-
-    console.log(NombreUsuario, contrasena);
-    console.log(TipoUsuarioString);
+    console.log(this.NombreUsuario, this.contrasena);
     let msg = '';
-    if (TipoUsuarioString === undefined) {
-      msg += 'Debes seleccionar un tipo de usuario\n';
-    }
-    if (NombreUsuario === '') {
+
+    if (this.NombreUsuario === '') {
       msg += 'Debes ingresar un Nombre de Usuario\n';
     }
-    if (contrasena === '') {
+    if (this.contrasena === '') {
       msg += 'Debes ingresar una contraseña\n';
     }
     if (msg !== '') {
       alert(msg);
-
       return;
     }
-    NombreUsuarioInput.value = '';
-    contrasenaInput.value = '';
-    console.log(TipoUsuarioString);
-    switch (TipoUsuarioString) {
-      case '1':
-        this.router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario: this.NombreUsuario } });
-        break;
-      case '2':
-        this.router.navigate(['/inicio-alumno'], { queryParams: { NombreUsuario: this.NombreUsuario } });
-        break;
-      default:
-        alert('Tipo de usuario no válido');
-        break;
-    }
+
+    this.ServicioApi.login(this.NombreUsuario, this.contrasena).subscribe(
+      data => {
+        console.log('Login successful:', data);
+        if (data.message === "Success") {
+          switch (data.perfil) {
+            case 'docente':
+              this.router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario: this.NombreUsuario } });
+              break;
+            case 'estudiante':
+              this.router.navigate(['/inicio-alumno'], { queryParams: { NombreUsuario: this.NombreUsuario } });
+              break;
+            default:
+              alert('Tipo de usuario no válido');
+          }
+        } else {
+          alert('Login failed: ' + data.message);
+        }
+      },
+      error => {
+        console.error('Login error:', error);
+        alert('Error de inicio de sesión. Por favor, verifica tus credenciales.');
+      }
+    );
   }
 }

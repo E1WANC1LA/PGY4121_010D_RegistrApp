@@ -19,12 +19,6 @@
           <ion-item>
             <ion-input [(ngModel)]="contrasena" label="Contraseña" labelPlacement="floating" id="contrasena" type="password" required></ion-input>
           </ion-item>
-          <ion-item>
-            <ion-select [(ngModel)]="TipoUsuarioString" label="Tipo de Usuario" id="tipoUsuario" interface="popover" style="color: black;">
-              <ion-select-option style="color: #1A1A1A;" value="1">Profesor</ion-select-option>
-              <ion-select-option style="color: #1A1A1A;" value="2">Alumno</ion-select-option>
-            </ion-select>
-          </ion-item>
           <ion-button expand="block" style="margin-top: 16px;" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
           <ion-button expand="block" fill="clear" routerLink="/registro" style="margin-top: 16px;">¿No tienes cuenta? Regístrate</ion-button>
           <ion-text color="medium" style="display: block; text-align: center; margin-top: 16px;">

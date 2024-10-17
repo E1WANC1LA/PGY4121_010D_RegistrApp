@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { IonContent, ModalController, Platform } from '@ionic/angular';
-import { Filesystem,Directory } from '@capacitor/filesystem';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BarcodeScanningModalComponent } from './barcode-scanning-modal.component';
-import { BarcodeScanner, LensFacing } from '@capacitor-mlkit/barcode-scanning';
+import { BarcodeScanner, BarcodeFormat } from '@capacitor-mlkit/barcode-scanning';
+import { AlertController } from '@ionic/angular';
+
+
 @Component({
   selector: 'app-inicio-alumno',
   templateUrl: './inicio-alumno.page.html',
@@ -11,81 +12,132 @@ import { BarcodeScanner, LensFacing } from '@capacitor-mlkit/barcode-scanning';
 })
 export class InicioAlumnoPage implements OnInit {
   @ViewChild('content', { static: false }) content!: IonContent;
-  nombreUsuario: string | null = null;
-  resultadoEscaneado = '';
+  NombreUsuario: string | null = null;
+  scanResult: string = '';
+  isScanning: boolean = false;
+
   constructor(
     private route: ActivatedRoute, 
-    private Router: Router,
-    private modalController : ModalController,
-    private platform: Platform
+    private router: Router,
+    private alertController: AlertController,
   ) { }
 
-
-  async startScan() {
-    const modal = await this.modalController.create({
-      component: BarcodeScanningModalComponent,
-      cssClass: 'barcode-scanning-modal',
-      showBackdrop: false,
-      componentProps: {
-        formats: [], // Aquí puedes agregar los formatos que desees escanear
-        lensFacing: LensFacing.Back, // Usa la cámara trasera por defecto
-      }
-    });
-  
-    await modal.present();
-  
-    // Aquí escuchamos el resultado del modal
-    const { data } = await modal.onDidDismiss();
-  
-    if (data && data.barcode) {
-      // Si hay un código escaneado, lo asignamos a la variable resultadoEscaneado
-      this.resultadoEscaneado = data.barcode.displayValue || '';
-      console.log('Resultado escaneado:', this.resultadoEscaneado);
-    }
-  
-    // Asegúrate de detener el escaneo después de que el modal se cierre
-    await BarcodeScanner.stopScan();
-  }
-  
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.nombreUsuario = params['NombreUsuario'];
+      this.NombreUsuario = params['NombreUsuario'];
       const mensajeBienvenida = document.getElementById('MensajeBienvenida');
-      if (this.nombreUsuario && mensajeBienvenida) {
-        mensajeBienvenida.innerText = `Bienvenido a la aplicación alumno ${this.nombreUsuario}`;
+      if (this.NombreUsuario && mensajeBienvenida) {
+        mensajeBienvenida.innerText = `Bienvenido a la aplicación alumno ${this.NombreUsuario}`;
       }
     });
-  
-    if (this.platform.is('capacitor')) {
-      BarcodeScanner.isSupported().then();
-      BarcodeScanner.checkPermissions().then();
-      BarcodeScanner.removeAllListeners().then();
-    }
   }
-  
-  async closeModal(barcode: string) {
-    document.querySelector('body')?.classList.remove('barcode-scanning-active');
-    // Dismiss del modal y envío del código escaneado
-    await this.modalController.dismiss({
-      barcode: {
-        displayValue: barcode
-      }
-    });
-    // Asegúrate de detener el escaneo después de cerrar el modal
-    await BarcodeScanner.stopScan();
-  }
-
 
   ionViewDidEnter() {
     this.content.scrollToTop(300);
   }
 
   cerrarSesion() {
-    this.nombreUsuario = null;
-    this.Router.navigate(['/login']);
+    this.NombreUsuario = null;
+    this.router.navigate(['/login']);
   }
 
+  async startScan() {
+    document.body.classList.add('barcode-scanner-active');
+
+    try {
+      const listener = await BarcodeScanner.addListener(
+        'barcodeScanned',
+        async (result: any) => {
+          console.log('QR Code Scanned:', result);
+          if (result && result.content) {
+            this.scanResult = result.content;
+            const ElementoResultado = document.getElementById('resultadoQr');
+            if (ElementoResultado) {
+              ElementoResultado.innerText = this.scanResult;
+            }
+            await listener.remove();
+          }
+        }
+      );
+
+      // Inicia el escaneo
+      await BarcodeScanner.startScan();
+    } catch (error) {
+      console.error('Error starting scan:', error);
+    }
+  }
+
+  async stopScan() {
+    document.body.classList.remove('barcode-scanner-active');
+    await BarcodeScanner.removeAllListeners();
+    await BarcodeScanner.stopScan();
+    this.scanResult = '';
+  }
+
+  async checkPermissions() {
+    const status = await BarcodeScanner.checkPermissions();  // Función correcta
+    if (status.camera === 'granted') {  // Verificar si el permiso de la cámara está otorgado
+      return true;
+    } else if (status.camera === 'denied') {  // Verificar si el permiso fue denegado
+      const alert = await this.alertController.create({
+        header: 'No tienes permisos',
+        message: 'Por favor habilita los permisos para la cámara en tus configuraciones.',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+          },
+          {
+            text: 'Abrir configuraciones',
+            handler: () => {
+              BarcodeScanner.openSettings();  // Función correcta
+            },
+          },
+        ],
+      });
+      await alert.present();
+      return false;
+    } else {
+      // Si el estado del permiso es 'prompt', mostrar el prompt de permisos
+      const promptAlert = await this.alertController.create({
+        header: 'Permiso de cámara',
+        message: 'La aplicación necesita acceso a la cámara para escanear códigos.',
+        buttons: [
+          {
+            text: 'Aceptar',
+            handler: async () => {
+              const newStatus = await BarcodeScanner.requestPermissions();  // Solicitar permisos
+              if (newStatus.camera === 'granted') {
+                return true;
+              }else {
+                return false;
+              }
+            },
+          },
+        ],
+      });
+      await promptAlert.present();
+      return false;
+    }
+  }
   
 
+  async askUser() {
+    const confirmed = confirm('¿Quieres escanear un código de barras?');
+    if (confirmed) {
+      const permissionGranted = await this.checkPermissions();
+      if (permissionGranted) {
+        await this.startScan();
+      }
+    }
+  }
 
+
+  async setZoomRatio(zoom: number) {
+    await BarcodeScanner.setZoomRatio({ zoomRatio: zoom });
+  }
+
+  async openSettings() {
+    await BarcodeScanner.openSettings();  // Función correcta
+  }
 }

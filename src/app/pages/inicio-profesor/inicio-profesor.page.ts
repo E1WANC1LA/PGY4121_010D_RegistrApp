@@ -9,16 +9,16 @@ import { Router } from '@angular/router';
 })
 export class InicioProfesorPage implements OnInit {
   @ViewChild('content', { static: false }) content!: IonContent;
-  nombreUsuario: string | null = null;
+  NombreUsuario: string | null = null;
 
   constructor(private route: ActivatedRoute, private Router: Router) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.nombreUsuario = params['NombreUsuario'];
+      this.NombreUsuario = params['NombreUsuario'];
       const mensajeBienvenida = document.getElementById('MensajeBienvenida');
-      if (this.nombreUsuario && mensajeBienvenida) {
-        mensajeBienvenida.innerText = `Bienvenido a la aplicación profesor ${this.nombreUsuario}`;
+      if (this.NombreUsuario && mensajeBienvenida) {
+        mensajeBienvenida.innerText = `Bienvenido a la aplicación profesor ${this.NombreUsuario}`;
       }
     });
   }
@@ -38,7 +38,7 @@ export class InicioProfesorPage implements OnInit {
   }
 
   cerrarSesion() {
-    this.nombreUsuario = null;
+    this.NombreUsuario = null;
     this.Router.navigate(['/login']);
   }
 }
