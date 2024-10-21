@@ -21,24 +21,31 @@ export class InicioProfesorPage implements OnInit {
         mensajeBienvenida.innerText = `Bienvenido a la aplicación profesor ${this.NombreUsuario}`;
       }
     });
+    console.log('Nombre de usuario:', localStorage.getItem('correo'));
+    console.log('Token:', localStorage.getItem('token'));
+    console.log('isLoggedIn:', localStorage.getItem('isLoggedIn'));
   }
 
   ionViewDidEnter() {
     this.content.scrollToTop(300);
   }
 
-  GenerarQr() {
-    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let textoQR = '';
-    const caracteresLength = caracteres.length;
-    for (let i = 0; i < 10; i++) {
-      textoQR += caracteres.charAt(Math.floor(Math.random() * caracteresLength));
-    }
-    this.Router.navigate(['/generar-qr'], { queryParams: { qr: textoQR } });
+
+
+  IrMisCursos() {
+    this.Router.navigate(['/mis-cursos'],{ queryParams: { NombreUsuario: this.NombreUsuario } });
+  }
+
+
+  IrInicioProfesor() {
+    this.Router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario: this.NombreUsuario } });
   }
 
   cerrarSesion() {
     this.NombreUsuario = null;
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    localStorage.removeItem('correo');
     this.Router.navigate(['/login']);
   }
 }

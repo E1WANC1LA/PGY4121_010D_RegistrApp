@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-
+import { AuthGuard } from './guards/auth.guard'; // Importar el guard
 
 const routes: Routes = [
   {
@@ -23,16 +22,31 @@ const routes: Routes = [
   },
   {
     path: 'inicio-profesor',
-    loadChildren: () => import('./pages/inicio-profesor/inicio-profesor.module').then(m => m.InicioProfesorPageModule)
+    loadChildren: () => import('./pages/inicio-profesor/inicio-profesor.module').then(m => m.InicioProfesorPageModule),
+    canActivate: [AuthGuard] 
   },
   {
     path: 'inicio-alumno',
-    loadChildren: () => import('./pages/inicio-alumno/inicio-alumno.module').then(m => m.InicioAlumnoPageModule)
+    loadChildren: () => import('./pages/inicio-alumno/inicio-alumno.module').then(m => m.InicioAlumnoPageModule),
+    canActivate: [AuthGuard] 
   },
   {
     path: 'generar-qr',
     loadChildren: () => import('./pages/generar-qr/generar-qr.module').then(m => m.GenerarQRPageModule)
   },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
+  {
+    path: 'mis-cursos',
+    loadChildren: () => import('./pages/mis-cursos/mis-cursos.module').then( m => m.MisCursosPageModule),
+    // canActivate: [AuthGuard] 
+  },
+  {
+    path: '**',
+    redirectTo: 'not-found'
+  }
 
 ];
 
@@ -40,8 +54,6 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
-  exports: [RouterModule],
-  providers: [],
-  bootstrap: [AppComponent]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

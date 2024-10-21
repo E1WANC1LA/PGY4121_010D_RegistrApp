@@ -1,0 +1,38 @@
+<ion-header style="background-color: #307FE2;">
+  <ion-toolbar>
+    <ion-title>Cursos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="main-content" class="card-container">
+    <ion-list>
+      <ion-item *ngFor="let curso of cursos">
+        <ion-thumbnail slot="start">
+          <img [src]="curso.imagen" alt="{{ curso.nombre }}"/>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ curso.nombre }}</h2>
+          <p>{{ curso.descripcion ? curso.descripcion : 'Sin descripción disponible' }}</p>
+          <p>Profesor: {{ curso.usuario.nombre_completo }}</p>
+          <ion-button fill="outline" (click)="GenerarQr()">Generar QR</ion-button>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
+
+<ion-tab-bar slot="bottom">
+  <ion-tab-button (click)="IrInicioProfesor()">
+    <ion-icon name="play-circle"></ion-icon>
+    Inicio
+  </ion-tab-button>
+  <ion-tab-button (click)="IrMisCursos()">
+    <ion-icon name="radio"></ion-icon>
+    Mis Cursos
+  </ion-tab-button>
+  <ion-tab-button (click)="cerrarSesion()">
+    <ion-icon name="radio"></ion-icon>
+    Cerrar Sesión
+  </ion-tab-button>
+</ion-tab-bar>

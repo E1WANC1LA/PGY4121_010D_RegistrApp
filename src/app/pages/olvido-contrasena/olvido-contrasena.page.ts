@@ -8,7 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./olvido-contrasena.page.scss'],
 })
 export class OlvidoContrasenaPage {
-  constructor(private alertController: AlertController,private router: Router) {}
+  constructor(private alertController: AlertController,private router: Router) {
+    localStorage.removeItem('isLoggedIn');
+
+
+  }
 
   async recuperarContrasena() {
     const nombreUsuarioInput = document.getElementById('nombreUsuario') as HTMLInputElement;

@@ -13,7 +13,13 @@ export class LoginPage implements OnInit {
   contrasena: string = '';
   TipoUsuarioString: string | undefined;
 
-  constructor(private router: Router, private ServicioApi: ServicioApi) { }
+  constructor(private router: Router, private ServicioApi: ServicioApi) { 
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    localStorage.removeItem('correo');
+
+
+  }
 
   ngOnInit() { }
 
@@ -34,8 +40,12 @@ export class LoginPage implements OnInit {
 
     this.ServicioApi.login(this.NombreUsuario, this.contrasena).subscribe(
       data => {
+        
         console.log('Login successful:', data);
         if (data.message === "Success") {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('token', data.auth.token);
+          localStorage.setItem('correo', data.data.correo); 
           switch (data.perfil) {
             case 'docente':
               this.router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario: this.NombreUsuario } });

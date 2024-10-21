@@ -38,6 +38,10 @@ export class InicioAlumnoPage implements OnInit {
 
   cerrarSesion() {
     this.NombreUsuario = null;
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('token');
+    localStorage.removeItem('correo');
+    
     this.router.navigate(['/login']);
   }
 

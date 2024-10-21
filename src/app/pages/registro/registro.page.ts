@@ -9,7 +9,11 @@ import { AlertController } from '@ionic/angular';
 })
 export class RegistroPage implements OnInit {
 
-  constructor(private alertController: AlertController,private router: Router) {}
+  constructor(private alertController: AlertController,private router: Router) {
+
+    localStorage.removeItem('isLoggedIn');
+
+  }
 
   ngOnInit() {
   }
