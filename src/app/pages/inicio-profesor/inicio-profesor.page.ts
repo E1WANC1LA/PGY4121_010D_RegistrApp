@@ -15,7 +15,7 @@ export class InicioProfesorPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.NombreUsuario = params['NombreUsuario'];
+      this.NombreUsuario = localStorage.getItem('correo');
       const mensajeBienvenida = document.getElementById('MensajeBienvenida');
       if (this.NombreUsuario && mensajeBienvenida) {
         mensajeBienvenida.innerText = `Bienvenido a la aplicación profesor ${this.NombreUsuario}`;
