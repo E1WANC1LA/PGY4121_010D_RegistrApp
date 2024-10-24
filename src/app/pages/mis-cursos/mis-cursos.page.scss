@@ -6,6 +6,12 @@
   padding: 16px; /* Espacio alrededor del contenedor */
 }
 
+.button-outline {
+  border-color: var(--ion-color-primary, #6200EE);
+  background: transparent;
+  color: var(--ion-color-primary, #6200EE); 
+}
+
 ion-toolbar {
   --border-width: 0;
   --box-shadow: none;
