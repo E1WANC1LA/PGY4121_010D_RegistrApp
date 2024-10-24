@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ServicioApi } from '../../services/ServicioApi.service';
 
 @Component({
   selector: 'app-olvido-contrasena',
@@ -8,16 +9,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./olvido-contrasena.page.scss'],
 })
 export class OlvidoContrasenaPage {
-  constructor(private alertController: AlertController,private router: Router) {
+  constructor(private alertController: AlertController,private router: Router , private ServicioApi: ServicioApi) {
     localStorage.removeItem('isLoggedIn');
 
+   }
 
-  }
-
-  async recuperarContrasena() {
+  async recuperarContrasenia() {
     const nombreUsuarioInput = document.getElementById('nombreUsuario') as HTMLInputElement;
     const nombreUsuario = nombreUsuarioInput.value;
-
     if (nombreUsuario === '') {
       const alert = await this.alertController.create({
         header: 'Error',
@@ -27,20 +26,31 @@ export class OlvidoContrasenaPage {
       await alert.present();
       return;
     }
+  this.ServicioApi.RecuperarContrasena(nombreUsuario).subscribe(
+    async data => {
+      if (data.message === "Solicitud de recuperación de contraseña enviada correctamente") {
+        const alert = await this.alertController.create({
+          header: 'Éxito',
+          message: 'Solicitud de recuperación de contraseña enviada correctamente',
+          buttons: [
+            {
+              text: 'OK',
+              handler: () => {
+                this.router.navigate(['/login']);
+              }
+            }
+          ]
+        });
+        await alert.present();
+      }
+    },
+    error => {
+      console.error('Login error:', error);
+      alert('Error de inicio de sesión. Por favor, verifica tus credenciales.');
+    }
+  )
+};
 
-    const alert = await this.alertController.create({
-      header: 'Recuperación de Contraseña',
-      message: `Se ha enviado un enlace de recuperación a ${nombreUsuario}.`,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.router.navigate(['/login']);
-          }
-        }
-      ]
-    });
 
-    await alert.present();
-  }
+
 }

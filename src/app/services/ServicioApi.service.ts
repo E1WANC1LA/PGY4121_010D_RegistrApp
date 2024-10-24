@@ -21,6 +21,17 @@ export class ServicioApi {
       );
   }
 
+
+  registrarUsuario(nombre: string, apellido: string, correo: string, perfil: string, run: string, codigo: string): Observable<any> {
+    console.log('registrarUsuario:', codigo,run,nombre,apellido, correo, perfil);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { codigo,run,nombre,apellido, correo, perfil };
+    return this.http.post<any>(this.apiUrl + 'usuarios', body, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   obtenerCursos(correo: string, token: string): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
@@ -31,6 +42,17 @@ export class ServicioApi {
         catchError(this.handleError)
       );
   }
+
+  RecuperarContrasena(correo: string): Observable<any> {
+    console.log('RecuperarContrasena:', correo);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const body = { correo };
+    return this.http.post<any>(this.apiUrl + 'auth/recuperar', body, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     let errorMessage = 'An unknown error occurred!';
