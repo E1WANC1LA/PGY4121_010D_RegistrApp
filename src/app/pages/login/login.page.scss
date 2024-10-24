@@ -1,5 +1,6 @@
 #main-content {
     display: flex;
+    background-color: #6200EE;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -10,41 +11,43 @@
     text-align: center;
     width: 100%;
     max-width: 400px;
-    background-color: #307FE2;
+    background-color: #6200EE;
     padding: 16px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .title {
-    color: #FFB800;
+    color: #ffffff;
     font-size: 24px;
     margin-bottom: 16px;
   }
   
   ion-card {
-    background-color: #FFFFFF;
+    background-color: #6200EE;
+    box-shadow: none; /* Asegura que no haya sombra */
+
   }
   
   ion-card-title {
-    color: #1A1A1A;
+    color: #ffffff;
   }
   
   ion-item {
-    --background: #FFFFFF;
+    --background: #6200EE;
   }
   
   ion-input {
-    color: #1A1A1A;
+    color: #ffffff;
   }
   
   ion-button {
-    --background: #FFB800;
-    --color: #1A1A1A;
+    --background: #6200EE;
+    --color: #ffffff;
+    
   }
   
   a {
-    color: #FFB800;
+    color: #ffffff;
     text-decoration: none;
   }
   

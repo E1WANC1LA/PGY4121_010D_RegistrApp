@@ -1,6 +1,59 @@
+#main-content {
+  display: flex;
+  background-color: #6200EE;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+#container {
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  background-color: #6200EE;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.title {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+
+ion-card {
+  background-color: #6200EE;
+  box-shadow: none; /* Asegura que no haya sombra */
+
+}
+
+ion-card-title {
+  color: #ffffff;
+}
+
+ion-item {
+  --background: #6200EE;
+}
+
+ion-input {
+  color: #ffffff;
+}
+
+ion-button {
+  --background: #6200EE;
+  --color: #ffffff;
+  
+}
+
+a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
 ion-header {
-  --background: linear-gradient(45deg, #307FE2, #FFB800);
-  color: white;
+  --border-width: 0;
+  --box-shadow: none;
 }
 
 ion-toolbar {
@@ -13,63 +66,28 @@ ion-toolbar {
   box-shadow: none; /* Asegura que no haya sombra */
 }
 
-ion-title {
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
+/* Estilos específicos para md y ios */
+ion-header.md, ion-footer.md {
+  --box-shadow: none;
 }
 
-ion-content {
-  --background: linear-gradient(45deg, #FFB800, #307FE2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.ion-padding {
-  background: #FFFFFF;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 90%;
-  max-width: 400px;
-  margin-top: 20%;
-
-}
-
-ion-item {
-  --background: #FFFFFF;
-  --border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-ion-input {
-  color: #1A1A1A;
-  --padding-start: 10px;
-}
-
-ion-button {
-  --background: #FFB800;
-  --color: #1A1A1A;
-  --border-radius: 8px;
-  --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  font-size: 16px;
-  font-weight: bold;
-}
-
-ion-button:hover {
-  --background: #307FE2;
+ion-header.ios, ion-footer.ios {
+  --border-color: transparent;
 }
 
 /* Estilos responsivos */
 @media (max-width: 600px) {
-  .ion-padding {
-    padding: 16px;
-    width: 100%;
+  #container {
+    padding: 8px;
+    max-width: 90%;
   }
 
-  ion-title {
+  .title {
     font-size: 20px;
+  }
+
+  ion-card-title {
+    font-size: 18px;
   }
 
   ion-button {

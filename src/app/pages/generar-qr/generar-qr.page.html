@@ -1,5 +1,5 @@
-<ion-header [translucent]="true">
-  <ion-toolbar color="tertiary">
+<ion-header [translucent]="true" style="background-color: #6200EE;">
+  <ion-toolbar>
     <ion-title>Generar QR</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,7 +12,7 @@
       <img *ngIf="!QrTexto" class="qr-placeholder" src="assets/images/qr.webp" alt="">
     </div>
   </div>
-  <ion-button expand="full" (click)="IrInicioProfesor()">Volver al inicio</ion-button>
+  <ion-button expand="full" style="background-color: #6200EE; color: #ffffff;" (click)="IrInicioProfesor()">Volver al inicio</ion-button>
 
 </div>
 </ion-content>

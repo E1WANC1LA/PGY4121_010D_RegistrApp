@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" style="background-color: #6200EE;">
   <ion-toolbar>
     <ion-title>Recuperar Contraseña</ion-title>
   </ion-toolbar>
@@ -16,8 +16,10 @@
       <ion-input label="Nombre de Usuario" id="nombreUsuario" type="text" labelPlacement="floating"></ion-input>
     </ion-item>
     <ion-item>
-    <ion-button expand="full" (click)="recuperarContrasena()">Recuperar Contraseña</ion-button>
-    <ion-button expand="full" routerLink="/login">Cancelar</ion-button>
+    <ion-button expand="full"  fill="clear" (click)="recuperarContrasena()">Recuperar Contraseña</ion-button>
+    
     </ion-item>
+    <ion-item>
+      <ion-button expand="full" fill="clear" routerLink="/login">Cancelar</ion-button>    </ion-item>
   </div>
 </ion-content>

@@ -1,9 +1,3 @@
-<ion-header [translucent]="true" style="background-color: #307FE2;">
-  <ion-toolbar>
-    <ion-title>Iniciar Sesión</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" style="background-color: #1A1A1A;">
   <div id="main-content">
     <div id="container">
@@ -19,7 +13,7 @@
           <ion-item>
             <ion-input [(ngModel)]="contrasena" label="Contraseña" labelPlacement="floating" id="contrasena" type="password" required></ion-input>
           </ion-item>
-          <ion-button expand="block" style="margin-top: 16px;" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
+          <ion-button expand="block" fill="clear" style="margin-top: 16px;" (click)="iniciarSesion()">Iniciar Sesión</ion-button>
           <ion-button expand="block" fill="clear" routerLink="/registro" style="margin-top: 16px;">¿No tienes cuenta? Regístrate</ion-button>
           <ion-text color="medium" style="display: block; text-align: center; margin-top: 16px;">
             <a href="/olvido-contrasena">Olvidé mi contraseña</a>

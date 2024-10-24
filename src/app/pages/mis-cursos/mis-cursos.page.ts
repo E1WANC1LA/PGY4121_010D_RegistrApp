@@ -11,7 +11,8 @@ import { ServicioApi } from '../../services/ServicioApi.service';
 export class MisCursosPage implements OnInit {
   NombreUsuario: string | null = null;
   cursos: any[] = [];
-  
+  isHydrated: boolean = false; // Cambia esto según tu lógica
+
   @ViewChild('listaCursos', { static: true }) listaCursos!: ElementRef<HTMLUListElement>;
 
   constructor(
@@ -24,6 +25,8 @@ export class MisCursosPage implements OnInit {
     const correo = localStorage.getItem('correo') || '';
     const token = localStorage.getItem('token') || '';
 
+
+  
     this.servicioApi.obtenerCursos(correo, token).subscribe(
       data => {
         console.log('Cursos obtenidos:', data);

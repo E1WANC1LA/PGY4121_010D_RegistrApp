@@ -21,7 +21,9 @@ export class LoginPage implements OnInit {
 
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+   console.log(1); 
+   }
 
   iniciarSesion() {
     console.log(this.NombreUsuario, this.contrasena);

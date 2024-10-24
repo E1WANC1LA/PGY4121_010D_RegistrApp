@@ -1,4 +1,4 @@
-<ion-header [translucent]="true" style="background-color: #307FE2;">
+<ion-header [translucent]="true" style="background-color: #6200EE;">
   <ion-toolbar>
     <ion-title>Inicio</ion-title>
   </ion-toolbar>
@@ -13,17 +13,18 @@
 </ion-content>
 
 
+
 <ion-tab-bar slot="bottom">
-  <ion-tab-button (click)="IrInicioProfesor()">
-    <ion-icon name="play-circle"></ion-icon>
+  <ion-tab-button  (click)="IrInicioProfesor()">
+    <ion-icon style="color: #6200EE;" name="home"></ion-icon>
     Inicio
   </ion-tab-button>
   <ion-tab-button (click)="IrMisCursos()">
-    <ion-icon name="radio"></ion-icon>
+    <ion-icon style="color: #6200EE;" name="book"></ion-icon>
     Mis Cursos
   </ion-tab-button>
   <ion-tab-button (click)="cerrarSesion()">
-    <ion-icon name="radio"></ion-icon>
+    <ion-icon style="color: #6200EE;" name="exit"></ion-icon>
     Cerrar Sesión
   </ion-tab-button>
 </ion-tab-bar>
