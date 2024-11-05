@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServicioApi } from '../../services/ServicioApi.service';
-
+import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-mis-cursos',
   templateUrl: './mis-cursos.page.html',
@@ -12,6 +12,8 @@ export class MisCursosPage implements OnInit {
   NombreUsuario: string | null = null;
   cursos: any[] = [];
   isHydrated: boolean = false; // Cambia esto según tu lógica
+  isLoading: boolean = true;
+
 
   @ViewChild('listaCursos', { static: true }) listaCursos!: ElementRef<HTMLUListElement>;
 
@@ -20,13 +22,14 @@ export class MisCursosPage implements OnInit {
     private router: Router,
     private servicioApi: ServicioApi
   ) {}
-
+ 
   ngOnInit() {
     const correo = localStorage.getItem('correo') || '';
     const token = localStorage.getItem('token') || '';
 
 
-  
+    const loadingDuration = 3000;
+    this.showLoading(loadingDuration);
     this.servicioApi.obtenerCursos(correo, token).subscribe(
       data => {
         console.log('Cursos obtenidos:', data);
@@ -42,6 +45,14 @@ export class MisCursosPage implements OnInit {
         alert('Ocurrió un error al obtener los cursos.');
       }
     );
+  }
+
+  showLoading(duration: number) {
+    this.isLoading = true;
+
+    setTimeout(() => {
+      this.isLoading = false; // Oculta la pantalla de carga después de la duración especificada
+    }, duration);
   }
 
   renderCursos() {

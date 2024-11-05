@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicioApi } from '../../services/ServicioApi.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +13,9 @@ export class LoginPage implements OnInit {
   NombreUsuario: string = '';
   contrasena: string = '';
   TipoUsuarioString: string | undefined;
+  isLoading: boolean = true;
 
-  constructor(private router: Router, private ServicioApi: ServicioApi) { 
+  constructor(private router: Router, private ServicioApi: ServicioApi,private loadingController: LoadingController) { 
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('token');
     localStorage.removeItem('correo');
@@ -22,8 +24,17 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-   console.log(1); 
-   }
+    const loadingDuration = 3000; // Tiempo en milisegundos
+    this.showLoading(loadingDuration);
+  }
+
+  showLoading(duration: number) {
+    this.isLoading = true;
+
+    setTimeout(() => {
+      this.isLoading = false; // Oculta la pantalla de carga después de la duración especificada
+    }, duration);
+  }
 
   iniciarSesion() {
     console.log(this.NombreUsuario, this.contrasena);
