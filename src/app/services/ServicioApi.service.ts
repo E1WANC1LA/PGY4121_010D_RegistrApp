@@ -43,6 +43,18 @@ export class ServicioApi {
       );
   }
 
+  crearCurso (nombre: string, descripcion: string, sigla: string, institucion: string, correo: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+    const body = { nombre, descripcion, sigla, institucion, correo , token};
+    return this.http.post<any>(this.apiUrl + 'cursos', body, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   RecuperarContrasena(correo: string): Observable<any> {
     console.log('RecuperarContrasena:', correo);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

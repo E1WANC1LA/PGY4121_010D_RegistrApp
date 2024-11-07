@@ -93,6 +93,11 @@ export class MisCursosPage implements OnInit {
     this.router.navigate(['/inicio-profesor'], { queryParams: { NombreUsuario: this.NombreUsuario } });
   }
 
+  IrCrearCurso() {
+    this.router.navigate(['/crear-curso'], { queryParams: { NombreUsuario: this.NombreUsuario } });
+  }
+  
+
   GenerarQr() {
     console.log('Generar QR');
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

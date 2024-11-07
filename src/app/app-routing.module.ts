@@ -41,12 +41,18 @@ const routes: Routes = [
   {
     path: 'mis-cursos',
     loadChildren: () => import('./pages/mis-cursos/mis-cursos.module').then( m => m.MisCursosPageModule),
-    // canActivate: [AuthGuard] 
+    canActivate: [AuthGuard] 
+  },
+  {
+    path: 'crear-curso',
+    loadChildren: () => import('./pages/crear-curso/crear-curso.module').then( m => m.CrearCursoPageModule)
   },
   {
     path: '**',
     redirectTo: 'not-found'
-  }
+  },
+ 
+
 
 ];
 

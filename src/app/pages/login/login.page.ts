@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicioApi } from '../../services/ServicioApi.service';
 import { LoadingController } from '@ionic/angular';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',

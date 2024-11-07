@@ -5,7 +5,13 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+  <ion-item class="">
+    <ion-button (click)="IrCrearCurso()"  fill="outline" style="background-color: #6200EE; color: #ffffff;" ion-button>Crear Nuevo Curso</ion-button>
+  </ion-item>
+  </ion-list>
   <div id="main-content" class="card-container">
+    
     <ion-list>
       <ion-item *ngFor="let curso of cursos">
         <ion-thumbnail slot="start">

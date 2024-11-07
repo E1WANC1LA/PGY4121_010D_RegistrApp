@@ -20,15 +20,15 @@ export class RegistroPage implements OnInit {
   }
 
   async Registrarse() {
-    const NombreInput = document.getElementById('nombre') as HTMLInputElement;
-    const apellidoInput = document.getElementById('apellido') as HTMLInputElement;
-    const NombreUsuarioInput = document.getElementById('NombreUsuario') as HTMLInputElement;
-    const tipoUsuario = document.getElementById('tipoUsuario') as HTMLInputElement;
-    const runInput = document.getElementById('run') as HTMLInputElement;
-    const Nombre = NombreInput.value;
-    const apellido = apellidoInput.value;
-    const NombreUsuario = NombreUsuarioInput.value;
-    const run = runInput.value;
+    let NombreInput = document.getElementById('nombre') as HTMLInputElement;
+    let apellidoInput = document.getElementById('apellido') as HTMLInputElement;
+    let NombreUsuarioInput = document.getElementById('NombreUsuario') as HTMLInputElement;
+    let tipoUsuario = document.getElementById('tipoUsuario') as HTMLInputElement;
+    let runInput = document.getElementById('run') as HTMLInputElement;
+    let Nombre = NombreInput.value;
+    let apellido = apellidoInput.value;
+    let NombreUsuario = NombreUsuarioInput.value;
+    let run = runInput.value;
     let tipo = '';
     if (tipoUsuario.value === '1') {
       tipo = 'docente';
